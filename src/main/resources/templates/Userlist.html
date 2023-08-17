@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <script>
+        $(document).ready(function () {
+            $('#birthDate').datepicker({
+                format: 'yyyy-mm-dd', // Set your desired date format
+                autoclose: true
+            });
+        });
+    </script>
+
+    <title>User List</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom CSS for the layout */
+        .container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            width: 400px;
+        }
+
+        .table-container {
+            flex: 1;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th, td {
+            text-align: center;
+        }
+
+        th {
+            position: sticky;
+            top: 0;
+            background-color: #f2f2f2;
+            z-index: 1;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-around;
+        }
+    </style>
+
+</head>
+
+<head>
+    <!-- Add Bootstrap Datepicker CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+    <!-- Add Bootstrap Datepicker JS (requires jQuery) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <!-- Form container -->
+    <div class="card p-4">
+        <h2 class="text-center">New User Entry</h2>
+        <form th:action="@{/user/add}" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="name" class="form-label">Username:</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="DOB" class="form-label">Birth Date:</label>
+                <input type="date" class="form-control" id="DOB" name="DOB" required>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Save User</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#introModal">
+                Add Intro
+            </button>
+            <div class="modal fade" id="introModal" tabindex="-1" role="dialog" aria-labelledby="introModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="introModalLabel">Add Intro Video</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form th:action="@{/upload/intro}" method="post" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="introVideo" class="form-label">Choose Intro Video:</label>
+                                    <input type="file" class="form-control" id="introVideo" name="introVideo" accept="video/*">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Upload Intro Video</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- Table container -->
+    <div class="table-container">
+        <div class="container">
+            <h1>User List</h1>
+            <table class="table" border="2px">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody th:each="user : ${users}">
+                <tr>
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td class="actions">
+                        <a th:href="@{/user/view/{id}(id=${user.id})}">
+                            <button class="btn btn-success" >View</button>
+                        </a>
+
+                        <a th:href="@{/user/update/{id}(id=${user.id})}">
+                            <button class="btn btn-warning">Update</button>
+                        </a>
+
+                        <a th:href="@{/user/delete/{id}(id=${user.id})}">
+                            <button class="btn btn-danger">Delete</button>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Add Bootstrap JS and Popper.js (required for some Bootstrap components) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

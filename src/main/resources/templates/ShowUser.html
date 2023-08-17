@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<!-- Center the content on the page -->
+<div class="container-fluid d-flex justify-content-center align-items-center vh-100">
+    <!-- Small-sized centered card -->
+    <div class="card text-center shadow" style="max-width: 500px;">
+        <div class="card-body">
+            <h1>
+                <h1 class="card-title" th:text="${user.id}">User ID</h1>
+            </h1>
+            <h1>
+                <p class="card-text">
+                    <label>
+                        Name:
+                    </label>
+                    <span th:text="${user.name}">User Name</span><br>
+                    <label style="{text-color:red}">
+                        Email:
+                    </label>
+                    <span th:text="${user.email}">User Email</span>
+                </p>
+            </h1>
+
+            <a th:href="@{/user/details/${user.id}}" class="btn btn-primary">View Details</a>
+        </div>
+    </div>
+</div>
+
+<!-- Add Bootstrap JavaScript links at the end of the body -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Update User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* CSS for the popup form */
+        .popup-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>L
+</head>
+<body>
+<div class="popup-container shadow" id="popup-container" style="{border = black}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update User</h5>
+                <button type="button" class="close" onclick="closePopup()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="update-form" method="post">
+                    <input type="hidden" id="user-id" name="userId" />
+                    <div class="form-group">
+                        <label for="user-name">Name:</label>
+                        <input type="text" class="form-control" id="user-name" name="name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="user-email">Name:</label>
+                        <input type="text" class="form-control" id="user-email" name="name" />
+                    </div>
+                    <div class="form-group">
+                        <a th:href="@{/user/updatepassword/{id}(id=${user.id})}">
+                            <button class="btn btn-secondary">Update Password</button>
+                        </a>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closePopup()">Cancel</button>
+                <button type="submit" form="update-form" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

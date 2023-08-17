@@ -1,8 +1,3 @@
-# Read Me First
-The following was discovered as part of building this project:
-
-* The original package name 'com.mongo-api.mongo-api' is invalid and this project uses 'com.mongoapi.mongoapi' instead.
-
 # Getting Started
 
 ### Reference Documentation
@@ -13,6 +8,8 @@ For further reference, please consider the following sections:
 * [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.1.2/maven-plugin/reference/html/#build-image)
 * [Spring Web](https://docs.spring.io/spring-boot/docs/3.1.2/reference/htmlsinge/index.html#web)
 * [Spring Data MongoDB](https://docs.spring.io/spring-boot/docs/3.1.2/reference/htmlsinge/index.html#data.nosql.mongodb)
+* [Thymeleaf](https://docs.spring.io/spring-boot/docs/3.1.2/reference/htmlsinge/index.html#web.servlet.spring-mvc.template-engines)
+* [Cloud Bootstrap](https://docs.spring.io/spring-cloud-commons/docs/current/reference/html/)
 
 ### Guides
 The following guides illustrate how to use some features concretely:
@@ -21,4 +18,5 @@ The following guides illustrate how to use some features concretely:
 * [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
 * [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
 * [Accessing Data with MongoDB](https://spring.io/guides/gs/accessing-data-mongodb/)
+* [Handling Form Submission](https://spring.io/guides/gs/handling-form-submission/)
 
