@@ -1,6 +1,7 @@
 package com.example.GameSchedule.repo;
 
 import com.example.GameSchedule.Models.User;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
@@ -13,6 +14,6 @@ public interface UserRepository extends MongoRepository<User, Long> {
     @Query("{}")
     long collectionCount();
 
-    Optional<User> findTopByOrderByFirstModifiedDesc();
+    User findTopByOrderByFirstModifiedDesc();
 
     }

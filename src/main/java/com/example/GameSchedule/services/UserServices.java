@@ -75,7 +75,7 @@ public class UserServices {
         return "UpdateUser";
     }
 
-    public long numberOfUsers() {
+    public static long numberOfUsers() {
         long numberOfUsers = userRepository.count();
         return numberOfUsers;
     }

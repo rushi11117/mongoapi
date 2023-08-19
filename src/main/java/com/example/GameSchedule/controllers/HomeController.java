@@ -18,4 +18,9 @@ public class HomeController {
 		return "Error";
 	}
 
+	@GetMapping("/login")
+	public String getLoginForm() {
+		return "LogginForm";
+	}
+
 }

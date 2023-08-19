@@ -3,7 +3,12 @@ package com.example.GameSchedule.util;
 import com.example.GameSchedule.Models.User;
 import com.example.GameSchedule.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Optional;
 
 
 @Component
@@ -23,7 +28,12 @@ public class MongoUtil {
 //                Sort.Direction.DESC,"Updated At"
 //        )).limit(1);
 
-        return userRepository.findTopByOrderByFirstModifiedDesc().get();
+        if (userRepository.findTopByOrderByFirstModifiedDesc() == null) {
+//            return new User(new Long(1920001),null,null,null,null,null,null,null);
+            return null;
+        } else {
+            return userRepository.findTopByOrderByFirstModifiedDesc();
+        }
     }
 
 }

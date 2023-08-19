@@ -27,12 +27,12 @@ public class UserController {
     }
 
     @RequestMapping("/view/{id}")
-    public void showUser(@PathVariable long id, @NotNull Model model) {
+    public String showUser(@PathVariable long id, @NotNull Model model) {
 
         User user = userServices.findByUserId(id);
         System.out.println(user.getId());
         model.addAttribute("user", user);
-//        return "ShowUser";
+        return "ShowUser";
     }
 
 

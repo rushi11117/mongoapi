@@ -1,7 +1,11 @@
 package com.example.GameSchedule.util;
 
+import com.example.GameSchedule.Models.User;
 import com.example.GameSchedule.repo.UserRepository;
+import com.example.GameSchedule.services.UserServices;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class IdGenerator {
@@ -14,10 +18,11 @@ public class IdGenerator {
 
     public Long getLastestId() {
         MongoUtil mongoUtil = new MongoUtil(userRepository);
-        System.out.println(
-                mongoUtil.getLastestUpdateDocument()
-        );
-        Long getLastestId = mongoUtil.getLastestUpdateDocument().getId();
-        return getLastestId+1;
+        User lastestUser = mongoUtil.getLastestUpdateDocument();
+        if (lastestUser == null) {
+            return 19200001L;
+        } else {
+            return lastestUser.getId() + UserServices.numberOfUsers();
+        }
     }
 }

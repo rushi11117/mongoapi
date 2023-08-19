@@ -41,8 +41,37 @@
 
 <!-- Main content area -->
 <main class="container-fluid">
-	<h1>Welcome to the Home Page</h1>
 	<!-- Add your main content here -->
+
+	<div class="container-fluid">
+		<div class="row">
+			<!-- Left Column: Sign Up and Login Buttons -->
+			<div class="col-md-4 bg-light d-flex align-items-center justify-content-center">
+				<div class="text-center">
+					<h2>Welcome to Our App</h2>
+					<p>Join us and get started!</p>
+					<a href="#" class="btn btn-primary btn-lg mb-3">Sign Up</a>
+					<p>Already have an account?</p>
+					<a href="#" class="btn btn-outline-primary btn-lg">Login</a>
+				</div>
+			</div>
+
+			<!-- Right Column: Login Form -->
+			<div class="col-md-8">
+				<div class="container mt-5">
+					<div class="card">
+						<div class="card-header">
+							Login Form
+						</div>
+						<div class="card-body">
+							<!-- Add your login form here -->
+							<div th:replace = "{LoginForm :: login-form}"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </main>
 
 <!-- Add Bootstrap JavaScript links at the end of the body -->
