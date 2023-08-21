@@ -20,7 +20,7 @@ public class HomeController {
 
 	@GetMapping("/login")
 	public String getLoginForm() {
-		return "LogginForm";
+		return "LoginForm";
 	}
 
 }

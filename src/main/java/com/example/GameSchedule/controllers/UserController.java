@@ -1,17 +1,15 @@
 package com.example.GameSchedule.controllers;
 
+import com.example.GameSchedule.Models.User;
 import com.example.GameSchedule.services.UserServices;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import com.example.GameSchedule.Models.User;
-import com.example.GameSchedule.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @Controller

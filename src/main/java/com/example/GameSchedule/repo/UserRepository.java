@@ -1,11 +1,8 @@
 package com.example.GameSchedule.repo;
 
 import com.example.GameSchedule.Models.User;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
-
-import java.util.Optional;
 
 public interface UserRepository extends MongoRepository<User, Long> {
     @Query("{ 'id' : ?0 }")
@@ -13,6 +10,12 @@ public interface UserRepository extends MongoRepository<User, Long> {
 
     @Query("{}")
     long collectionCount();
+
+    @Query("{'email' : 'email'}")
+    User findByEmail(String email);
+
+    @Query("{'username' : 'username'}")
+    User findByUsername(String username);
 
     User findTopByOrderByFirstModifiedDesc();
 

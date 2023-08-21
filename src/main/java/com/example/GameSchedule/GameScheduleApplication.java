@@ -1,6 +1,5 @@
 package com.example.GameSchedule;
 
-import com.example.GameSchedule.Models.User;
 import com.example.GameSchedule.repo.UserRepository;
 import com.example.GameSchedule.services.UserServices;
 import org.springframework.boot.SpringApplication;

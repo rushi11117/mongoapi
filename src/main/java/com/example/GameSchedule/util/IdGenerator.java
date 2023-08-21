@@ -5,8 +5,6 @@ import com.example.GameSchedule.repo.UserRepository;
 import com.example.GameSchedule.services.UserServices;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class IdGenerator {
 
