@@ -5,6 +5,8 @@ import com.example.GameSchedule.repo.UserRepository;
 import org.springframework.stereotype.Service;
 import java.util.Date;
 
+import static com.example.GameSchedule.util.Hash.generateSHA256Hash;
+
 @Service
 public class LoginAPIServices {
 
@@ -35,7 +37,7 @@ public class LoginAPIServices {
     public Boolean loginWithUsername(String username, String password) {
         user = userRepository.findByUsername(username);
         if(user != null) {
-            if (user.getPassword().equals(password)) {
+            if (user.getPassword().equals(generateSHA256Hash(password))) {
                 return true;
             }
         }

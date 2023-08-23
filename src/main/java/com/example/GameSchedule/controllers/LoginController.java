@@ -14,33 +14,33 @@ import java.util.Date;
 public class LoginController {
 
     private static LoginAPIServices loginAPIServices;
-    @PostMapping("/login")
+    @PostMapping("/userlogin")
     public ResponseEntity<String> userLogin(
-            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String usernameOrEmail,
             @RequestParam(required = false) String username,
             @RequestParam(required = false) String password,
             @RequestParam(required = false)Date DOB
             ){
-        if (email == null || username ==null){
-            return ResponseEntity.badRequest().body("Email Or Username Not Entered");
-        } else if ( password == null || DOB == null) {
-            return ResponseEntity.badRequest().body("Password Or DOB Not Entered");
-        }
-        if (email==null && password==null) {
+//        if (usernameOrEmail == null || password ==null){
+//            return ResponseEntity.badRequest().body("Email Or Username Not Entered");
+//        } else if ( password == null || DOB == null) {
+//            return ResponseEntity.badRequest().body("Password Or DOB Not Entered");
+//        }
+         if (usernameOrEmail==null && password==null) {
 
             loginAPIServices.loginWithUsername(username, DOB);
 
-        } else if (email==null && password==null) {
+        } else if (usernameOrEmail==null && password==null) {
 
-            loginAPIServices.loginWithEmail(email,DOB);
+            loginAPIServices.loginWithEmail(usernameOrEmail,DOB);
 
-        }else if (email==null && password==null) {
+        }else if (usernameOrEmail==null && password==null) {
 
             loginAPIServices.loginWithUsername(username,password);
 
-        }else if (email==null && password==null) {
+        }else if (usernameOrEmail==null && password==null) {
 
-            loginAPIServices.loginWithEmail(email,password);
+            loginAPIServices.loginWithEmail(usernameOrEmail,password);
 
         }
         return ResponseEntity.ok("Login Succesfull!!");

@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import static com.example.GameSchedule.util.Hash.generateSHA256Hash;
+
 @Service
 public class UserServices {
 
@@ -34,7 +36,7 @@ public class UserServices {
             user.setEmail(email);
         }
         if (password != null) {
-            user.setPassword(password);
+            user.setPassword(generateSHA256Hash(password));
         }
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
