@@ -2,7 +2,10 @@ package com.example.GameSchedule.services;
 
 import com.example.GameSchedule.Models.User;
 import com.example.GameSchedule.repo.UserRepository;
-import com.example.GameSchedule.util.IdGenerator;
+import com.example.GameSchedule.util.Hash;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,40 +28,21 @@ public class UserServices {
         this.userRepository = userRepository;
     }
 
-    public Boolean save(String name, String email, String DOB, String password) {
-
-        IdGenerator idGenerator = new IdGenerator(userRepository);
-        User user = new User(idGenerator.getLastestId(),null,null,null,null,null,null,null);
-        if(name != null) {
-            user.setName(name);
-        }
-        if (email != null) {
-            user.setEmail(email);
-        }
-        if (password != null) {
-            user.setPassword(generateSHA256Hash(password));
-        }
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        if(DOB != null) {
-            try {
-                Date tmpDOB = dateFormat.parse(DOB);
-                System.out.println(tmpDOB);
-                System.out.println(tmpDOB.getClass());
-                user.setDOB(tmpDOB);
-            } catch (ParseException e) {
-                System.out.println(e);
-            }
-        }
-
-        user.setFirstModified();
-        user.setLastModified();
-        User userAdded = userRepository.save(user);
-        if (user !=null) {
-            return true;
-        }
-        return false;
-
+    public Boolean save(User user ,HttpSession session) {
+    	userRepository.findByEmail(user.getEmail());
+    	if(userRepository.findByEmail(user.getEmail())!=null) {
+    		session.setAttribute("msg", "User Already Exists!!");
+    		return false;
+    	}
+    	user.setPassword(Hash.generateSHA256Hash(user.getPassword()));
+    	User savedUser = userRepository.save(user);
+    	if(savedUser!=null) {
+    		session.setAttribute("msg","User Added!!");
+        	return true;
+    	} else {
+    		session.setAttribute("msg","Something Wrong On Server Side");
+    		return false;
+    	}
     }
 
     public List<User> findAllUsers(){

@@ -2,6 +2,9 @@ package com.example.GameSchedule.controllers;
 
 import com.example.GameSchedule.Models.User;
 import com.example.GameSchedule.services.UserServices;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +31,7 @@ public class UserController {
     public String showUser(@PathVariable long id, @NotNull Model model) {
 
         User user = userServices.findByUserId(id);
-        System.out.println(user.getId());
+//        System.out.println(user.getId());
         model.addAttribute("user", user);
         return "ShowUser";
     }
@@ -36,11 +39,10 @@ public class UserController {
 
 
     @PostMapping(value = "/add")
-    public String addUser(@RequestParam() @Nullable String name, @RequestParam() @Nullable String email, @RequestParam()  @Nullable String DOB, @RequestParam @Nullable String password) {
-        System.out.println(DOB);
-        Boolean isSaved = userServices.save(name,email,DOB,password);
+    public String addUser(@ModelAttribute User user, HttpSession session) {
+        Boolean isSaved = userServices.save(user, session);
         ResponseEntity.ok("User Saved.");
-        return "redirect:/user/getall";
+        return "redirect:/register";
     }
 
     @RequestMapping("/getall")

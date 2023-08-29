@@ -1,72 +1,43 @@
 package com.example.GameSchedule.controllers;
 
+import com.example.GameSchedule.Models.User;
+import com.example.GameSchedule.repo.UserRepository;
 import com.example.GameSchedule.services.LoginAPIServices;
 import com.example.GameSchedule.util.DateTimeUtil;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.text.ParseException;
 import java.util.Date;
+import com.example.GameSchedule.util.Hash;
 
 @Controller
 @RequestMapping("/loginapi")
 public class LoginController {
-
-    DateTimeUtil dateTimeUtil = new DateTimeUtil();
-     LoginAPIServices loginAPIServices = new LoginAPIServices();
-    @PostMapping("/userlogin")
-    public ResponseEntity<String> userLogin(
-            @RequestParam(required = false) String usernameOrEmail,
-            @RequestParam(required = false) String username,
-            @RequestParam(required = false) String password,
-            @RequestParam(required = false)  String dob
-            ) throws ParseException {
-        System.out.println(usernameOrEmail+"  "+username+"  "+password);
-        System.out.println(dob);
-
-
-//        if (usernameOrEmail != null || password !=null){
-//            return ResponseEntity.badRequest().body("Email Or Username Not Entered");
-//        } else if ( password != null || dob != null) {
-//            return ResponseEntity.badRequest().body("Password Or dob Not Entered");
-//        }
-
-        Date DOB = null;
-        try {
-            if(dob.equals("")==false){
-                System.out.println("String Date --> Util.Date Date");
-                DOB = dateTimeUtil.stringToDate(dob);
-            }
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+	
+	private static UserRepository userRepository;
+	public LoginController(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
+	
+	@PostMapping("login")
+    public String userLogin(@ModelAttribute User user, HttpSession session) {
+//        LoginAPIServices.
+        User foundUser = userRepository.findByEmail(user.getEmail());
+        System.out.println("    ");
+        System.out.println(foundUser.getPassword());
+        System.out.println(Hash.generateSHA256Hash(user.getPassword()));
+        if(foundUser.getPassword().equals(Hash.generateSHA256Hash(user.getPassword()))) {
+        	session.setAttribute("logedin", user.getEmail());
+        	ResponseEntity.ok("Login Success!!");
+        	return "redirect:/admin/";
+        } else {
+        	ResponseEntity.ok("Invalid Password!!");
+        	return "redirect:/signup";
         }
-        System.out.println(DOB);
-
-        if (usernameOrEmail!=null && dob.equals("")==false) {
-            System.out.println("email and dob");
-            loginAPIServices.loginWithUsername(usernameOrEmail,DOB);
-
-        } else if (usernameOrEmail!=null && password.equals("")==false && password.equals("null")==false) {
-             System.out.println("email and password");
-             loginAPIServices.loginWithUsername(usernameOrEmail, password);
-
-        }
-
-
-
-//        else if (usernameOrEmail!=null && password!=null) {
-//             System.out.println("username and password");
-//            loginAPIServices.loginWithUsername(username,password);
-//
-//        }else if (usernameOrEmail!=null && password!=null) {
-//             System.out.println("email and password");
-//            loginAPIServices.loginWithEmail(usernameOrEmail,password);
-//
-//        }
-        return ResponseEntity.ok("Login Succesfull!!");
     }
-
 }

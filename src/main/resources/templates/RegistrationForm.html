@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{Base::Layout(~{::section})}">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Register</title>
+</head>
+
+<body>
+	<section>
+		<section>
+			<div class="container mt-5" style="width: 50%;">
+				<div class="card">
+					<div class="card-header">
+						Registration Form
+						<br>
+						<th:block th:if="${session.msg}">
+							<p class="text-center fs-3 text-success">[[${session.msg}]]</p>
+						</th:block>
+					</div>
+					<div class="card-body">
+						<form th:object="${user}" th:action="@{/user/add}" method="post">
+							<div class="form-group">
+								<label for="name">Name</label>
+								<input type="text" class="form-control" id="name" name="name" required>
+							</div>
+							<div class="form-group">
+								<label for="email">Email</label>
+								<input type="text" class="form-control" id="email" name="email" required>
+							</div>
+							<div class="form-group">
+								<label for="password">Password</label>
+								<div class="input-group">
+									<input type="password" class="form-control" id="password" name="password">
+									<div class="input-group-append">
+										<button type="button" class="btn btn-outline-secondary"
+											id="togglePassword">Show</button>
+									</div>
+								</div>
+							</div>
+							<div class="form-group" id="dobField">
+								<div class="form-group">
+									<label for="datetimePicker">Select a date and time:</label>
+									<!--<input type="datetime-local" class="form-control" id="DOB" name="DOB" th:field="*{DOB}">-->
+									<input type="date" id="DOB" class="form-control" name="DOB">
+								</div>
+							</div>
+							<div style="padding:1%">
+								<button type="submit" class="btn btn-primary">Register</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+		<script>
+			document.getElementById('togglePassword').addEventListener('click', function () {
+				const passwordField = document.getElementById('password');
+				const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+				passwordField.setAttribute('type', type);
+				this.textContent = type === 'password' ? 'Show' : 'Hide';
+			});
+
+			function getSelectedDateTime() {
+				const datetimePicker = document.getElementById("DOB");
+				const selectedValue = datetimePicker.value;
+
+				// Convert the selected value to a JavaScript Date object
+				const selectedDate = new Date(selectedValue);
+
+				// Convert the JavaScript Date object to milliseconds since Unix epoch
+				const millisecondsSinceEpoch = selectedDate.getTime();
+
+				// Send this value to your server or use it as needed
+				console.log("Milliseconds since Unix epoch:", millisecondsSinceEpoch);
+			}
+		</script>
+</body>
+
+</html>

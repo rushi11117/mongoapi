@@ -11,12 +11,9 @@ public interface UserRepository extends MongoRepository<User, Long> {
     @Query("{}")
     long collectionCount();
 
-    @Query("{'email' : 'email'}")
+    @Query("{'email' : ?0}")
     User findByEmail(String email);
 
-    @Query("{'username' : 'username'}")
-    User findByUsername(String username);
-
-    User findTopByOrderByFirstModifiedDesc();
+//    User findTopByOrderByFirstModifiedDesc();
 
     }

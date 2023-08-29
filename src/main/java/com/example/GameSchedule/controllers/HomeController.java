@@ -18,9 +18,14 @@ public class HomeController {
 		return "Error";
 	}
 
-	@GetMapping("/login")
+	@GetMapping("/signin")
 	public String getLoginForm() {
 		return "LoginForm";
+	}
+
+	@GetMapping("register")
+	public String getResgister() {
+		return "RegistrationForm";
 	}
 
 }

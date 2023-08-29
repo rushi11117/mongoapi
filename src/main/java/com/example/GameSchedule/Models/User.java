@@ -6,46 +6,39 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.example.GameSchedule.util.DateTimeUtil;
+import com.example.GameSchedule.util.Hash;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.util.Date;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import java.util.Date;
+
 
 @Document(collection = "users")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private int id;
     private String name;
     private String email;
-    private Date DOB;
     private String password;
-    private ObjectId introId;
-    private Date FirstModified;
-    @LastModifiedDate
-    private Date LastModified;
+    private String DOB;
+    private LocalTime LastModified;
 
 
 
+    public User(String name, String email, String password, String DOB, LocalTime LastModified) throws ParseException  {
 
-    public User(Long id, String name, String email, Date DOB, String password, ObjectId introId, Date FirstModified, Date LastModified) {
-
-        this.id = id;
         this.name = name;
         this.email = email;
         this.DOB = DOB;
         this.password = password;
-        this.introId = introId;
-        this.LastModified = LastModified;
-        this.LastModified = LastModified;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+        this.LastModified = setLastModified();
     }
 
     public String getName() {
@@ -64,11 +57,11 @@ public class User {
         this.email = email;
     }
 
-    public Date getDOB() {
+    public String getDOB() {
         return DOB;
     }
 
-    public void setDOB(Date DOB) {
+    public void setDOB(String DOB) {
         this.DOB = DOB;
     }
 
@@ -77,30 +70,20 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+    	this.password = password;
     }
 
-    public ObjectId getIntroId() {
-        return introId;
-    }
-
-    public void setIntroId(ObjectId introId) {
-        this.introId = introId;
-    }
-
-    public Date getLastModified() {
+    public LocalTime getLastModified() {
         return LastModified;
     }
 
-    public void setLastModified() {
-        this.LastModified = new Date();
+    public LocalTime setLastModified() {
+    	return LocalTime.now();
+    }
+    
+    public Date getParsedBirthDate(String strDOB) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.parse(strDOB);
     }
 
-    public Date getFirstModified() {
-        return FirstModified;
-    }
-
-    public void setFirstModified() {
-        this.FirstModified = new Date();
-    }
 }
