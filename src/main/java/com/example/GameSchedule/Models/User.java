@@ -28,16 +28,18 @@ public class User {
     private String email;
     private String password;
     private String DOB;
+    private String role;
     private LocalTime LastModified;
 
 
 
-    public User(String name, String email, String password, String DOB, LocalTime LastModified) throws ParseException  {
+    public User(String name, String email, String password, String DOB, LocalTime LastModified ,String role) throws ParseException  {
 
         this.name = name;
         this.email = email;
         this.DOB = DOB;
         this.password = password;
+        this.role = role;
         this.LastModified = setLastModified();
     }
 
@@ -72,8 +74,16 @@ public class User {
     public void setPassword(String password) {
     	this.password = password;
     }
+    
+    public String getRole() {
+		return role;
+	}
 
-    public LocalTime getLastModified() {
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public LocalTime getLastModified() {
         return LastModified;
     }
 

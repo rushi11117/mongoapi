@@ -24,7 +24,7 @@ public class LoginController {
 		this.userRepository = userRepository;
 	}
 	
-	@PostMapping("login")
+	@PostMapping("/login")
     public String userLogin(@ModelAttribute User user, HttpSession session) {
 //        LoginAPIServices.
         User foundUser = userRepository.findByEmail(user.getEmail());
@@ -32,12 +32,13 @@ public class LoginController {
         System.out.println(foundUser.getPassword());
         System.out.println(Hash.generateSHA256Hash(user.getPassword()));
         if(foundUser.getPassword().equals(Hash.generateSHA256Hash(user.getPassword()))) {
-        	session.setAttribute("logedin", user.getEmail());
+//        	session.setAttribute("logedin", user.getEmail());
         	ResponseEntity.ok("Login Success!!");
+        	System.out.println("Login Success!!");
         	return "redirect:/admin/";
         } else {
         	ResponseEntity.ok("Invalid Password!!");
-        	return "redirect:/signup";
+        	return "redirect:/signin";
         }
     }
 }

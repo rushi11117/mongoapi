@@ -16,7 +16,10 @@
 						Registration Form
 						<br>
 						<th:block th:if="${session.msg}">
-							<p class="text-center fs-3 text-success">[[${session.msg}]]</p>
+							<p class="text-center fs-3 text-success"></p>
+							<div class="alert alert-success" role="alert">
+								[[${session.msg}]]
+							</div>
 						</th:block>
 					</div>
 					<div class="card-body">

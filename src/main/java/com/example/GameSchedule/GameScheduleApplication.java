@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class GameScheduleApplication {
 
 	private static UserRepository userRepository;
-	public static UserServices userServices = new UserServices(userRepository);
+//	public static UserServices userServices = new UserServices(userRepository);
 
 	public static void main(String[] args) {
 		SpringApplication.run(GameScheduleApplication.class, args);

@@ -2,6 +2,7 @@ package com.example.GameSchedule.controllers;
 
 import com.example.GameSchedule.Models.User;
 import com.example.GameSchedule.services.UserServices;
+import com.example.GameSchedule.services.UserServicesImpl;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -20,10 +21,10 @@ import java.util.List;
 public class UserController {
 
 
-    private final UserServices userServices;
+    private final UserServicesImpl userServices;
 
     @Autowired
-    public UserController(UserServices userServices) {
+    public UserController(UserServicesImpl userServices) {
         this.userServices = userServices;
     }
 
